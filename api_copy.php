@@ -70,7 +70,8 @@ function getPrecoBanco() {
         if ($contPage % 80 == 0){
             $numPage++;
             $contPage = 0;
-            $url = $url;
+            $id_colecao = $GLOBALS["id_colecao"];
+            $url = "https://www.ligamagic.com.br/?view=colecao/colecao&id=$id_colecao&page=$numPage&orderBy=1&modoPrecos=5";
             $conteudoLigaMagic = file_get_contents($url);
         }
     }
