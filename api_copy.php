@@ -64,7 +64,7 @@ function getPrecoBanco() {
         echo "                <td>"; echo $arrNomeCartas["COL 5"]; echo "</td> \n";
         echo "                <td>"; echo $arrNomeCartas["COL 9"]; echo "</td> \n";
         echo "                <td>"; echo $arrNomeCartas["COL 10"]; echo "</td> \n";
-        echo "                <td>R$ "; echo $arrNomeCartas["COL 14"]; echo "</td> \n";
+        echo "                <td>R$ "; echo "$parteDois[0]"; echo "</td> \n";
         echo "            </tr>\n";
 
         if ($contPage % 80 == 0){
