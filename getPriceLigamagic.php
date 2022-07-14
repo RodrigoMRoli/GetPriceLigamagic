@@ -80,6 +80,18 @@ include "api_copy.php";
         white-space: nowrap;
         -webkit-overflow-scrolling: touch;
       }
+      table.dataTable thead .sorting:after,
+      table.dataTable thead .sorting:before,
+      table.dataTable thead .sorting_asc:after,
+      table.dataTable thead .sorting_asc:before,
+      table.dataTable thead .sorting_asc_disabled:after,
+      table.dataTable thead .sorting_asc_disabled:before,
+      table.dataTable thead .sorting_desc:after,
+      table.dataTable thead .sorting_desc:before,
+      table.dataTable thead .sorting_desc_disabled:after,
+      table.dataTable thead .sorting_desc_disabled:before {
+        bottom: .5em;
+      }
     </style>
 
     
@@ -135,7 +147,34 @@ include "api_copy.php";
 
       <h2 style="text-transform:capitalize">Tabela Cada Carta <?php echo $nome_colecao;?></h2>
       <div class="table-responsive">
-        <table class="table table-striped table-sm">
+      <script>
+        $(document).ready(function () {
+        $('#dtBasicExample').DataTable();
+        $('.dataTables_length').addClass('bs-select');
+      });
+      </script>
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <div class="dataTables_length" id="dtBasicExample_length">
+            <label>Show 
+              <select name="dtBasicExample_length" aria-controls="dtBasicExample" class="custom-select custom-select-sm form-control form-control-sm">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select> 
+            entries</label>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <div id="dtBasicExample_filter" class="dataTables_filter">
+            <label>Search:
+              <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="dtBasicExample">
+            </label>
+          </div>
+        </div>
+      </div>
+        <table class="table table-striped table-sm" id="dtBasicExample">
           <thead>
             <tr>
               <th scope="col">ID</th>
