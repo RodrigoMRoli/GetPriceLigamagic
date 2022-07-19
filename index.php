@@ -1,8 +1,14 @@
 <?php
 include "mysql_connect.php";
-include "api_copy.php";
+include "api_search.php";
 
-$ed = $_POST["value"];
+function debug_to_console($data) {
+    $output = $data;
+    if (is_array($output))
+        $output = implode(',', $output);
+
+    echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
+}
 
 ?>
 <!doctype html>
@@ -129,29 +135,25 @@ $ed = $_POST["value"];
           </div>
           <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" style="text-transform:capitalize">
             <span data-feather="calendar" class="align-text-bottom"></span>
-            <?php echo $nome_colecao;?>
+            <?php //echo $nome_colecao;?>
           </button>
         </div>
       </div>
-      
-      <h2 style="text-transform:capitalize">Tabela Cada Carta <?php echo $nome_colecao;?></h2>
-      <div class="table-responsive">
-        <table class="table table-striped table-sm">
-          <thead>
-            <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Nome PT-BR</th>
-              <th scope="col">Nome EN</th>
-              <th scope="col">Raridade</th>
-              <th scope="col">Cor</th>
-              <th scope="col">Preco</th>
-            </tr>
-          </thead>
-          <tbody>
-<?php //getPrecoBanco(); ?>
-          </tbody>
-        </table>
-      </div>
+      <form class="form-inline" action="getpriceligamagic.php" method="post">
+        <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Preference</label>
+        <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+            <?php
+                $sql = "SELECT `nome_reduzido` FROM `colecoes`";
+                $rs = mysqli_query($conn, $sql);
+                echo '<option value=""></option>';
+                foreach($rs as $key => $value){
+                    $final = implode("", $value);
+                    echo "<option name='value' value='$final'>$final</option>";
+                }
+            ?>
+        </select>
+        <button type="submit" class="btn btn-primary my-1">Submit</button>
+        </form>
     </main>
   </div>
 </div>
