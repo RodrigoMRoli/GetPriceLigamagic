@@ -23,6 +23,9 @@ getPrecoBanco($ed);
     
 
 <link href="./bs/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="./theme.bootstrap.min.css">
+
+
 
     <!-- Favicons -->
 <link rel="apple-touch-icon" href="" sizes="180x180">
@@ -34,6 +37,9 @@ getPrecoBanco($ed);
 
 
     <style>
+      th {
+          cursor: pointer;
+      }
       .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
@@ -85,10 +91,6 @@ getPrecoBanco($ed);
         -webkit-overflow-scrolling: touch;
       }
     </style>
-
-    
-    <!-- Custom styles for this template -->
-    <link href="./dontCommit/dashboard.css" rel="stylesheet">
   </head>
   <body>
     
@@ -132,12 +134,12 @@ getPrecoBanco($ed);
       </div>
 
       <form class="form-inline" action="getpriceligamagic.php" method="post">
-        <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Escolher Edição:</label>
-        <select class="custom-select my-1 mr-sm-2" name="option" id="inlineFormCustomSelectPref">
+      <div class="input-group" style="width:40%">
+        <select class="form-select" name="option" id="inlineFormCustomSelectPref">
             <?php
                 $sql = "SELECT nome, nome_reduzido FROM `colecoes`";
                 $rs = mysqli_query($conn, $sql);
-                echo '<option value=""></option>';
+                echo '<option value="">Escolher Edição...</option>';
                 while($row = $rs->fetch_assoc()) {
                   $tempNomeRed = $row["nome_reduzido"];
                   $tempNome = $row["nome"];
@@ -145,9 +147,11 @@ getPrecoBanco($ed);
                 }
             ?>
         </select>
-        <button type="submit" name="btnsearch">Search</button>
+        <button class="btn btn-outline-secondary" type="submit" name="btnsearch">Search</button>
+        </div>
       </form>
-      
+      <br>
+      <br>
       <h2 style="text-transform:capitalize">Tabela Cada Carta 
       <?php 
       $sql = "SELECT nome FROM colecoes WHERE `nome_reduzido`='$ed'";
@@ -157,15 +161,16 @@ getPrecoBanco($ed);
       }
       ?>
       </h2>
+      <br>
       <div class="table-responsive">
-        <table class="table table-striped table-sm">
+        <table class="table table-striped table-hover table-bordered tablesorter" id="myTable">
           <thead>
             <tr>
               <th scope="col">ID</th>
               <th scope="col">Nome PT-BR</th>
               <th scope="col">Nome EN</th>
               <th scope="col">Preco Menor</th>
-              <th scope="col">Preco Medio</th>
+              <!-- <th scope="col">Preco Medio</th> -->
               <th scope="col">Preco Maior</th>
             </tr>
           </thead>

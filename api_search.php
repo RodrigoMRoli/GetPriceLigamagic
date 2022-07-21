@@ -60,11 +60,11 @@ function makeTable($nome_colecao_red){
     $rs = mysqli_query($GLOBALS["conn"], $sql);
     while($row = $rs->fetch_assoc()) {
         echo "            <tr> \n";
-        echo "                <td>"; echo $row["id"]; echo "</td>  \n";
+        echo "                <th scope='row'>"; echo $row["id"]; echo "</th>  \n";
         echo "                <td>"; echo $row["COL 4"]; echo "</td>  \n";
         echo "                <td>"; echo $row["COL 5"]; echo "</td> \n";
         echo "                <td>R$ "; echo $row["COL 14"]; echo "</td> \n";
-        echo "                <td>R$ "; echo $row["COL 15"]; echo "</td> \n";
+        //echo "                <td>R$ "; echo $row["COL 15"]; echo "</td> \n";
         echo "                <td>R$ "; echo $row["COL 16"]; echo "</td> \n";
         echo "            </tr>\n";
     }
