@@ -1,8 +1,9 @@
 <?php
 include "mysql_connect.php";
-include "api_copy.php";
+include "api_search.php";
 
-$ed = $_POST["value"];
+$ed = $_POST["option"];
+getPrecoBanco($ed);
 
 ?>
 <!doctype html>
@@ -110,7 +111,7 @@ $ed = $_POST["value"];
       <div class="position-sticky pt-3">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">
+            <a class="nav-link active" aria-current="page" href="./index.php">
               <span data-feather="home" class="align-text-bottom"></span>
               Dashboard
             </a>
@@ -127,14 +128,35 @@ $ed = $_POST["value"];
             <button type="button" class="btn btn-sm btn-outline-secondary">Compartilhar</button>
             <button type="button" class="btn btn-sm btn-outline-secondary">Exportar</button>
           </div>
-          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" style="text-transform:capitalize">
-            <span data-feather="calendar" class="align-text-bottom"></span>
-            <?php echo $nome_colecao;?>
-          </button>
         </div>
       </div>
+
+      <form class="form-inline" action="getpriceligamagic.php" method="post">
+        <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Escolher Edição:</label>
+        <select class="custom-select my-1 mr-sm-2" name="option" id="inlineFormCustomSelectPref">
+            <?php
+                $sql = "SELECT nome, nome_reduzido FROM `colecoes`";
+                $rs = mysqli_query($conn, $sql);
+                echo '<option value=""></option>';
+                while($row = $rs->fetch_assoc()) {
+                  $tempNomeRed = $row["nome_reduzido"];
+                  $tempNome = $row["nome"];
+                  echo "<option name='value' value='$tempNomeRed'>$tempNome</option>";
+                }
+            ?>
+        </select>
+        <button type="submit" name="btnsearch">Search</button>
+      </form>
       
-      <h2 style="text-transform:capitalize">Tabela Cada Carta <?php echo $nome_colecao;?></h2>
+      <h2 style="text-transform:capitalize">Tabela Cada Carta 
+      <?php 
+      $sql = "SELECT nome FROM colecoes WHERE `nome_reduzido`='$ed'";
+      $rs = mysqli_query($GLOBALS["conn"], $sql);
+      while($row = $rs->fetch_assoc()) {
+        echo $row["nome"];
+      }
+      ?>
+      </h2>
       <div class="table-responsive">
         <table class="table table-striped table-sm">
           <thead>
@@ -142,13 +164,13 @@ $ed = $_POST["value"];
               <th scope="col">ID</th>
               <th scope="col">Nome PT-BR</th>
               <th scope="col">Nome EN</th>
-              <th scope="col">Raridade</th>
-              <th scope="col">Cor</th>
-              <th scope="col">Preco</th>
+              <th scope="col">Preco Menor</th>
+              <th scope="col">Preco Medio</th>
+              <th scope="col">Preco Maior</th>
             </tr>
           </thead>
           <tbody>
-<?php //getPrecoBanco(); ?>
+<?php makeTable($ed); ?>
           </tbody>
         </table>
       </div>

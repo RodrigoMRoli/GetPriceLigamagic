@@ -1,6 +1,5 @@
 <?php
 include "mysql_connect.php";
-include "api_search.php";
 
 function debug_to_console($data) {
     $output = $data;
@@ -133,26 +132,23 @@ function debug_to_console($data) {
             <button type="button" class="btn btn-sm btn-outline-secondary">Compartilhar</button>
             <button type="button" class="btn btn-sm btn-outline-secondary">Exportar</button>
           </div>
-          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle" style="text-transform:capitalize">
-            <span data-feather="calendar" class="align-text-bottom"></span>
-            <?php //echo $nome_colecao;?>
-          </button>
         </div>
       </div>
       <form class="form-inline" action="getpriceligamagic.php" method="post">
-        <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Preference</label>
-        <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+        <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Escolher Edição:</label>
+        <select class="custom-select my-1 mr-sm-2" name="option" id="inlineFormCustomSelectPref">
             <?php
-                $sql = "SELECT `nome_reduzido` FROM `colecoes`";
+                $sql = "SELECT nome, nome_reduzido FROM `colecoes`";
                 $rs = mysqli_query($conn, $sql);
                 echo '<option value=""></option>';
-                foreach($rs as $key => $value){
-                    $final = implode("", $value);
-                    echo "<option name='value' value='$final'>$final</option>";
+                while($row = $rs->fetch_assoc()) {
+                  $tempNomeRed = $row["nome_reduzido"];
+                  $tempNome = $row["nome"];
+                  echo "<option name='value' value='$tempNomeRed'>$tempNome</option>";
                 }
             ?>
         </select>
-        <button type="submit" class="btn btn-primary my-1">Submit</button>
+        <button type="submit" name="btnsearch">Search</button>
         </form>
     </main>
   </div>

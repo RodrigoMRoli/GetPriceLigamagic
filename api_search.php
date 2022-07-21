@@ -29,7 +29,7 @@ function getPrecoBanco($nome_colecao_red) {
     $sql = "SHOW TABLES LIKE '$nome_colecao_red'";
     $rs_cartas = mysqli_query($GLOBALS["conn"],$sql);
     if ($rs_cartas->num_rows !== 1){
-        $createTable = "CREATE TABLE IF NOT EXISTS `$nome_colecao_red` (`id` int NOT NULL AUTO_INCREMENT,`COL 1` varchar(50) DEFAULT NULL,`COL 2` varchar(100) DEFAULT NULL,`COL 3` varchar(10) DEFAULT NULL,`COL 4` varchar(50) DEFAULT NULL,`COL 5` varchar(50) DEFAULT NULL,`COL 6` varchar(5) DEFAULT NULL,`COL 7` varchar(5) DEFAULT NULL,`COL 8` varchar(5) DEFAULT NULL,`COL 9` varchar(5) DEFAULT NULL,`COL 10` varchar(6) DEFAULT NULL,`COL 11` varchar(6) DEFAULT NULL,`COL 12` varchar(6) DEFAULT NULL,`COL 13` varchar(6) DEFAULT NULL,`COL 14` varchar(10) DEFAULT NULL,`COL 15` varchar(10) DEFAULT NULL,`COL 16` varchar(10) DEFAULT NULL,PRIMARY KEY (`id`)) ENGINE=MyISAM AUTO_INCREMENT=301 DEFAULT CHARSET=utf8;";
+        $createTable = "CREATE TABLE IF NOT EXISTS `$nome_colecao_red` (`id` int NOT NULL AUTO_INCREMENT,`COL 1` varchar(50) DEFAULT NULL,`COL 2` varchar(100) DEFAULT NULL,`COL 3` varchar(10) DEFAULT NULL,`COL 4` varchar(50) DEFAULT NULL,`COL 5` varchar(50) DEFAULT NULL,`COL 6` varchar(5) DEFAULT NULL,`COL 7` varchar(5) DEFAULT NULL,`COL 8` varchar(5) DEFAULT NULL,`COL 9` varchar(5) DEFAULT NULL,`COL 10` varchar(6) DEFAULT NULL,`COL 11` varchar(6) DEFAULT NULL,`COL 12` varchar(6) DEFAULT NULL,`COL 13` varchar(6) DEFAULT NULL,`COL 14` varchar(10) DEFAULT NULL,`COL 15` varchar(10) DEFAULT NULL,`COL 16` varchar(10) DEFAULT NULL,PRIMARY KEY (`id`)) ENGINE=MyISAM DEFAULT CHARSET=utf8;";
         $rs_createTable = mysqli_query($GLOBALS["conn"], $createTable);
     }
     $quota = '"';
@@ -40,18 +40,9 @@ function getPrecoBanco($nome_colecao_red) {
     $inicioJSON = str_replace(';', "", $inicioJSON);
     $finalJSON = strstr($inicioJSON, 'edc.edicao = ', true);
     $obj = json_decode($finalJSON);
-
     foreach($obj as $e){
-        echo "<br>";
-        echo "<br>";
-        echo "Nome EN: $e->sNomeIngles";echo "<br>";
-        echo "Nome BR: $e->sNomePortugues";echo "<br>";
-        echo "precoMenor: $e->precoMenor";echo "<br>";
-        echo "precoMedio: $e->precoMedio";echo "<br>";
-        echo "precoMaior: $e->precoMaior";echo "<br>";
-        echo "IDE_Edicao: $e->IDE_Edicao";echo "<br>";
-        echo "<br>";
-        echo "<br>";
+        $sqlEdicao = "UPDATE `colecoes` SET `ide_edicao`='$e->IDE_Edicao' WHERE `nome_reduzido`='$nome_colecao_red'";
+        $rsGetIDE_Edicao = mysqli_query($GLOBALS["conn"], $sqlEdicao);
         $checkIfExists = "SELECT * FROM `$nome_colecao_red` WHERE `COL 5`=$quota$e->sNomeIngles$quota";
         $rs_checkIfExists = mysqli_query($GLOBALS["conn"], $checkIfExists);
         if ($rs_checkIfExists->num_rows > 0){
@@ -63,5 +54,19 @@ function getPrecoBanco($nome_colecao_red) {
         }
     }
 }
-getPrecoBanco("dom");
+
+function makeTable($nome_colecao_red){
+    $sql = "SELECT * FROM $nome_colecao_red";
+    $rs = mysqli_query($GLOBALS["conn"], $sql);
+    while($row = $rs->fetch_assoc()) {
+        echo "            <tr> \n";
+        echo "                <td>"; echo $row["id"]; echo "</td>  \n";
+        echo "                <td>"; echo $row["COL 4"]; echo "</td>  \n";
+        echo "                <td>"; echo $row["COL 5"]; echo "</td> \n";
+        echo "                <td>R$ "; echo $row["COL 14"]; echo "</td> \n";
+        echo "                <td>R$ "; echo $row["COL 15"]; echo "</td> \n";
+        echo "                <td>R$ "; echo $row["COL 16"]; echo "</td> \n";
+        echo "            </tr>\n";
+    }
+}
 ?>
