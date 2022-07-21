@@ -63,5 +63,5 @@ function getPrecoBanco($nome_colecao_red) {
         }
     }
 }
-getPrecoBanco("xln");
+getPrecoBanco("dom");
 ?>

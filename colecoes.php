@@ -1,7 +1,3 @@
-todos as colecoes conhecidas estao aqui
-
-<select size="1" id="ms_edicao" class="field-g select2-hidden-accessible" tabindex="-1" aria-hidden="true">
-    <option value=""></option>
     <option value="15ann">15th Anniversary</option>
     <option value="pl21">2021 Lunar New Year</option>
     <option value="war">A Guerra da Centelha / War of the Spark</option>
@@ -516,4 +512,3 @@ todos as colecoes conhecidas estao aqui
     <option value="zen">Zendikar / Zendikar</option>
     <option value="znc">Zendikar Rising Commander</option>
     <option value="zne">Zendikar Rising Expeditions</option>
-</select>

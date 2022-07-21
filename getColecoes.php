@@ -4,24 +4,23 @@ include "mysql_connect.php";
 $url = "C:\wamp64\www\GetPriceLigamagic\colecoes.php";
 $content = file_get_contents($url);
 
-$contentBreak = explode('value="', $content);
+$getNomeReduzido = explode('value="', $content);
+$getNome = explode('">', $content);
 
-foreach($contentBreak as $key => $value){
-    $newContent = strstr($value, '"', true);
-    if(strlen($newContent<10)){
-        echo "$newContent";
-        echo "<br>";
-        $sql = "SELECT * FROM `colecoes` WHERE `nome_reduzido`='$newContent'";
+foreach($getNomeReduzido as $key => $value){
+    $nomeEdicaoReduzida = strstr($value, '"', true);
+    if(strlen($nomeEdicaoReduzida<10)){
+        $tempNome = strstr($getNome[$key], '</option>', true);
+        $sql = "INSERT INTO `colecoes`(`nome_reduzido`, `nome`) VALUES ('$nomeEdicaoReduzida', '$tempNome')";
         $rs = mysqli_query($GLOBALS["conn"], $sql);
-        if($rs->num_rows > 0){
-            echo "ERRO: Nome ja Existe";
-        } else {
-            $sql = "INSERT INTO `colecoes`(`nome_reduzido`) VALUES ('$newContent')";
-            $rs = mysqli_query($GLOBALS["conn"], $sql);
-            echo "$newContent foi inserido no banco de dados";
-        }
+        echo "<br>";
+        echo "<br>";
+        echo "DEGUB:";
+        echo "<br>";
+        echo "$nomeEdicaoReduzida || $tempNome";
+        echo "<br>";
+        echo "<br>";
     }
 }
-
 // script utilizado para colocar todos os nomes de colecoes no banco de dados
 ?>
