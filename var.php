@@ -6,5 +6,5 @@ $numPage = 1;
 $id_colecao = 6197;
 $nome_colecao = "ixalan";
 $nome_colecao_red = "xln";
-$url_colecao = "https://www.ligamagic.com.br/?view=colecao/colecao&id=$id_colecao&page=$numPage&orderBy=1&modoPrecos=5";
+$url = "https://www.ligamagic.com.br/?view=colecao/colecao&id=$id_colecao&page=$numPage&orderBy=1&modoPrecos=5";
 ?>

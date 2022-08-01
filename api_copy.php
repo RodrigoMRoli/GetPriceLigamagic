@@ -44,20 +44,6 @@ function getPrecoBanco() {
         $parteDois = explode($conteudoParteDois, $parteUm[$contPage]);
         $sql2 = "UPDATE `$nome_colecao` SET `COL 14`='$parteDois[0]' WHERE `COL 4`= '$nomeDaCartaBR' ";
         $rs2 = mysqli_query($GLOBALS["conn"],$sql2);
-        switch ($arrNomeCartas['COL 9']){
-            case "C":
-                $qtComum++;
-                break;
-            case "U":
-                $qtIncomum++;
-                break;
-            case "R":
-                $qtRara++;
-                break;
-            case "M":
-                $qtMitica++;
-                break;
-        }
         echo "            <tr> \n";
         echo "                <td>"; echo $arrNomeCartas["id"]; echo "</td>  \n";
         echo "                <td>"; echo $arrNomeCartas["COL 4"]; echo "</td>  \n";
@@ -75,8 +61,6 @@ function getPrecoBanco() {
             $conteudoLigaMagic = file_get_contents($url);
         }
     }
-    $sql3 = "UPDATE `colecoes` SET `qtcomum`='$qtComum', `qtincomum`='$qtIncomum', `qtrara`='$qtRara', `qtmitica`='$qtMitica' WHERE `nomecolecao`= 'ixalan' ";
-    $rs3 = mysqli_query($GLOBALS["conn"],$sql3);
 }
-
+getPrecoBanco();
 ?>
