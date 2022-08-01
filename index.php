@@ -1,13 +1,6 @@
 <?php
 include "mysql_connect.php";
-
-function debug_to_console($data) {
-    $output = $data;
-    if (is_array($output))
-        $output = implode(',', $output);
-
-    echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
-}
+include "api_search.php";
 
 ?>
 <!doctype html>
@@ -27,6 +20,9 @@ function debug_to_console($data) {
     
 
 <link href="./bs/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="./theme.bootstrap.min.css">
+
+
 
     <!-- Favicons -->
 <link rel="apple-touch-icon" href="" sizes="180x180">
@@ -38,6 +34,9 @@ function debug_to_console($data) {
 
 
     <style>
+      th {
+          cursor: pointer;
+      }
       .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
@@ -89,10 +88,6 @@ function debug_to_console($data) {
         -webkit-overflow-scrolling: touch;
       }
     </style>
-
-    
-    <!-- Custom styles for this template -->
-    <link href="./dontCommit/dashboard.css" rel="stylesheet">
   </head>
   <body>
     
@@ -101,12 +96,6 @@ function debug_to_console($data) {
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
-  <div class="navbar-nav">
-    <div class="nav-item text-nowrap">
-      <!-- <a class="nav-link px-3" href="#">Sign out</a> -->
-    </div>
-  </div>
 </header>
 
 <div class="container-fluid">
@@ -115,7 +104,7 @@ function debug_to_console($data) {
       <div class="position-sticky pt-3">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">
+            <a class="nav-link active" aria-current="page" href="./index.php">
               <span data-feather="home" class="align-text-bottom"></span>
               Dashboard
             </a>
@@ -134,13 +123,14 @@ function debug_to_console($data) {
           </div>
         </div>
       </div>
+
       <form class="form-inline" action="getpriceligamagic.php" method="post">
-        <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Escolher Edição:</label>
-        <select class="custom-select my-1 mr-sm-2" name="option" id="inlineFormCustomSelectPref">
+      <div class="input-group" style="width:40%">
+        <select class="form-select" name="option" id="inlineFormCustomSelectPref">
             <?php
                 $sql = "SELECT nome, nome_reduzido FROM `colecoes`";
                 $rs = mysqli_query($conn, $sql);
-                echo '<option value=""></option>';
+                echo '<option value="">Escolher Edição...</option>';
                 while($row = $rs->fetch_assoc()) {
                   $tempNomeRed = $row["nome_reduzido"];
                   $tempNome = $row["nome"];
@@ -148,8 +138,11 @@ function debug_to_console($data) {
                 }
             ?>
         </select>
-        <button type="submit" name="btnsearch">Search</button>
-        </form>
+        <button class="btn btn-outline-secondary" type="submit" name="btnsearch">Search</button>
+        </div>
+      </form>
+
+      <div style="min-height: 900px;"></div>
     </main>
   </div>
 </div>

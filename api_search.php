@@ -60,13 +60,15 @@ function makeTable($nome_colecao_red){
     $rs = mysqli_query($GLOBALS["conn"], $sql);
     while($row = $rs->fetch_assoc()) {
         echo "            <tr> \n";
-        echo "                <th scope='row'>"; echo $row["id"]; echo "</th>  \n";
+        echo "                <td>"; echo $row["id"]; echo "</td>  \n";
         echo "                <td>"; echo $row["COL 4"]; echo "</td>  \n";
         echo "                <td>"; echo $row["COL 5"]; echo "</td> \n";
-        echo "                <td>R$ "; echo $row["COL 14"]; echo "</td> \n";
-        //echo "                <td>R$ "; echo $row["COL 15"]; echo "</td> \n";
-        echo "                <td>R$ "; echo $row["COL 16"]; echo "</td> \n";
+        echo "                <td>"; echo $row["COL 14"]; echo "</td> \n";
+        echo "                <td>"; echo $row["COL 15"]; echo "</td> \n";
+        echo "                <td>"; echo $row["COL 16"]; echo "</td> \n";
         echo "            </tr>\n";
     }
+    //echo "<script>function sortTable(h){var i,b,c,a,f,g,e,d,j=0;for(i=document.getElementById('myTable'),c=!0,d='asc';c;){for(a=1,c=!1,b=i.rows;a<b.length-1;a++)if(e=!1,f=b[a].getElementsByTagName('TD')[h],g=b[a+1].getElementsByTagName('TD')[h],'asc'==d){if(f.innerHTML.toLowerCase()>g.innerHTML.toLowerCase()){e=!0;break}}else if('desc'==d&&f.innerHTML.toLowerCase()<g.innerHTML.toLowerCase()){e=!0;break}e?(b[a].parentNode.insertBefore(b[a+1],b[a]),c=!0,j++):0==j&&'asc'==d&&(d='desc',c=!0)}}</script>";
+    //echo "<script>function sortTable(){var e,b,c,a,f,g,d;for(e=document.getElementById('myTable'),c=!0;c;){for(a=1,c=!1,b=e.rows;a<b.length-1;a++)if(d=!1,f=b[a].getElementsByTagName('TD')[0],g=b[a+1].getElementsByTagName('TD')[0],Number(f.innerHTML)>Number(g.innerHTML)){d=!0;break}d&&(b[a].parentNode.insertBefore(b[a+1],b[a]),c=!0)}}</script>";
 }
 ?>

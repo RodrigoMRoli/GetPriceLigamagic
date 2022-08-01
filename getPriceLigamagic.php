@@ -99,12 +99,6 @@ getPrecoBanco($ed);
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <input class="form-control form-control-dark w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
-  <div class="navbar-nav">
-    <div class="nav-item text-nowrap">
-      <!-- <a class="nav-link px-3" href="#">Sign out</a> -->
-    </div>
-  </div>
 </header>
 
 <div class="container-fluid">
@@ -166,12 +160,12 @@ getPrecoBanco($ed);
         <table class="table table-striped table-hover table-bordered tablesorter" id="myTable">
           <thead>
             <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Nome PT-BR</th>
-              <th scope="col">Nome EN</th>
-              <th scope="col">Preco Menor</th>
-              <!-- <th scope="col">Preco Medio</th> -->
-              <th scope="col">Preco Maior</th>
+              <th scope="col" onclick="sortTable(0)">ID</th>
+              <th scope="col" onclick="sortTable(1)">Nome PT-BR</th>
+              <th scope="col" onclick="sortTable(2)">Nome EN</th>
+              <th scope="col" onclick="sortTable(3)">Preco Menor</th>
+              <th scope="col" onclick="sortTable(4)">Preco Medio</th>
+              <th scope="col" onclick="sortTable(5)">Preco Maior</th>
             </tr>
           </thead>
           <tbody>
